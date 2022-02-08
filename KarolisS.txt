@@ -1,0 +1,34 @@
+1.
+SELECT knygos.leidimas, COUNT(knygos.leidimas) AS "knygu skaicius"
+FROM knygos
+GROUP BY knygos.leidimas;
+
+2.
+SELECT pavadinimas ,COUNT(pavadinimas) AS 'Knygu skaicius'
+FROM knygos
+GROUP BY pavadinimas
+ORDER BY 'Knygu skaicius' desc
+LIMIT 1
+
+3.
+SELECT autoriai.vardas, autoriai.pavarde, knygos.pavadinimas
+FROM autoriai
+LEFT JOIN knygos
+ON autoriai.id = knygos.autoriaus_id
+WHERE knygos.autoriaus_id
+ORDER BY knygos.leidimas;
+
+4.
+SELECT autoriai.vardas, autoriai.pavarde, knygos.pavadinimas
+FROM autoriai
+LEFT JOIN knygos
+ON autoriai.id = knygos.autoriaus_id
+ORDER BY knygos.leidimas;
+
+5.
+DELETE FROM knygos
+WHERE knygos.pavadinimas = (SELECT knygos.pavadinimas
+FROM knygos
+LEFT JOIN autoriai
+ON knygos.autoriaus_id = autoriai.id
+WHERE autoriai.vardas LIKE "Lukas%");
